@@ -1,19 +1,17 @@
-// Mobile menu
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 if (menuBtn && mobileMenu) {
   menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
 }
 
-// Services filter
-function initServicesFilter() {
+function initServices() {
   const grid = document.getElementById('servicesGrid');
   const search = document.getElementById('serviceSearch');
-  if (!grid || !window.SERVICES) return;
+  if (!grid || typeof window.SERVICES === 'undefined') return;
 
   function render(list) {
     if (!list.length) {
-      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:3rem 0;">No services match your search.</p>';
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:2.5rem 0;">No services match your search.</p>';
       return;
     }
     grid.innerHTML = list.map(s => `
@@ -23,8 +21,8 @@ function initServicesFilter() {
           <h3 class="card-title">${s.name}</h3>
           <p class="card-desc">${s.desc}</p>
           <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-            <a href="https://wa.me/923247334145?text=Hi%20Irfan%2C%20I%20need%20${encodeURIComponent(s.name)}" target="_blank" class="btn btn-wa" style="padding:0.5rem 0.9rem;font-size:0.85rem;">WhatsApp</a>
-            <a href="contact.html?service=${s.slug}" class="btn btn-outline" style="padding:0.5rem 0.9rem;font-size:0.85rem;">Get Quote</a>
+            <a href="https://wa.me/923247334145?text=${encodeURIComponent('Hi Irfan, I need ' + s.name)}" target="_blank" class="btn btn-wa" style="padding:0.45rem 0.85rem;font-size:0.82rem;">WhatsApp</a>
+            <a href="contact.html?service=${s.slug}" class="btn btn-outline" style="padding:0.45rem 0.85rem;font-size:0.82rem;">Get Quote</a>
           </div>
         </div>
       </div>
@@ -46,9 +44,8 @@ function initServicesFilter() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initServicesFilter);
+document.addEventListener('DOMContentLoaded', initServices);
 
-// Contact form demo
 const form = document.getElementById('contactForm');
 if (form) {
   form.addEventListener('submit', e => {
@@ -58,9 +55,9 @@ if (form) {
     btn.textContent = 'Sending...';
     btn.disabled = true;
     setTimeout(() => {
-      btn.textContent = '✓ Message Sent!';
+      btn.textContent = 'Message Sent!';
       form.reset();
-      setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2500);
-    }, 1000);
+      setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2200);
+    }, 900);
   });
 }
